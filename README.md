@@ -20,4 +20,4 @@ Vamos a partir en base a ```create-react-app``` para hacer este proyecto
 ## Como compartir
 
 - Publicar tu branch en este mismo repositorio con el siguiente naming ```{MiNombre}/workshop```
-- Ante cualquier duda pueden consultar en el channel de slack #typescript
+- Una vez listo compartirlo en el channel de slack #typescript. Ante cualquier duda pueden consultar por el mismo!
