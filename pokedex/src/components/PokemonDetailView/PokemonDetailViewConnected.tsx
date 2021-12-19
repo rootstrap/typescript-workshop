@@ -22,8 +22,10 @@ const PokemonDetailViewConnected: React.FC<PokemonDetailViewConnectedProps> = ({
 }) => {
   const id = url ? getSlugFromUrl(url, "pokemon") : null;
 
-  const { data, isLoading } = useQuery(`pokemon-${id}`, () =>
-    fetchPokemonDetails(id)
+  const { data, isLoading } = useQuery(
+    `pokemon-${id}`,
+    () => fetchPokemonDetails(id),
+    { enabled: !!id }
   );
 
   return (

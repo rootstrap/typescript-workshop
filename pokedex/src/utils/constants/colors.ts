@@ -1,4 +1,4 @@
-export const colorsByType = {
+export const colorsByType: Record<string, string> = {
   rock: "#B69e31",
   ghost: "#70559B",
   steel: "#B7B9D0",
@@ -19,7 +19,7 @@ export const colorsByType = {
   dragon: "#7037FF",
 };
 
-export const grayScale = {
+export const grayScale: Record<string, string> = {
   darkGray: "#212121",
   mediumGray: "#666666",
   lightGray: "#E0E0E0",

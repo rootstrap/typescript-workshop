@@ -1,7 +1,7 @@
 import { capitalize } from "lodash";
 import React from "react";
 import Loader from "react-loader-spinner";
-import { colorsByType, grayScale } from "utils/colors";
+import { colorsByType, grayScale } from "utils/constants/colors";
 import { Pokemon } from "utils/interfaces";
 
 interface PokemonListItemProps {
@@ -23,7 +23,7 @@ const PokemonListItem: React.FC<PokemonListItemProps> = ({
 
   return (
     <button
-      className="relative overflow-hidden transition-transform bg-white border-4 outline-none rounded-3xl hover:scale-105 focus:ring-4"
+      className="relative overflow-hidden bg-white border-4 outline-none motion-safe:transition-transform rounded-3xl motion-safe:hover:scale-105 focus:ring-4"
       style={{ borderColor: typeColor }}
       onClick={onClick}
       aria-disabled={isLoading}

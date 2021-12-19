@@ -1,26 +1,44 @@
 export enum PokemonTypeNames {
-  rock = "rock",
-  ghost = "ghost",
-  steel = "steel",
-  water = "water",
-  grass = "grass",
-  psychic = "psychic",
-  ice = "ice",
-  dark = "dark",
-  fairy = "fairy",
-  normal = "normal",
-  fighting = "fighting",
-  flying = "flying",
-  poison = "poison",
-  ground = "ground",
-  bug = "bug",
-  fire = "fire",
-  electric = "electric",
-  dragon = "dragon",
+  rock,
+  ghost,
+  steel,
+  water,
+  grass,
+  psychic,
+  ice,
+  dark,
+  fairy,
+  normal,
+  fighting,
+  flying,
+  poison,
+  ground,
+  bug,
+  fire,
+  electric,
+  dragon,
+}
+
+export enum PokemonStatNames {
+  hp,
+  attack,
+  defense,
+  "special-attack",
+  "special-defense",
+  speed,
 }
 
 export interface Sprites {
   frontDefault: string;
+}
+
+export interface MoveListItem {
+  move: ApiListItem;
+}
+export interface StatListItem {
+  baseStat: number;
+  effort: number;
+  stat: ApiListItem<PokemonStatNames>;
 }
 
 export interface Pokemon {
@@ -29,14 +47,15 @@ export interface Pokemon {
   order: number;
   sprites: Sprites;
   types: PokemonType[];
+  height: number;
+  weight: number;
+  moves: MoveListItem[];
+  stats: StatListItem[];
 }
 
 export interface PokemonType {
   slot: number;
-  type: {
-    name: PokemonTypeNames;
-    url: string;
-  };
+  type: ApiListItem<PokemonTypeNames>;
 }
 
 export interface ApiPage<T> {
@@ -46,7 +65,7 @@ export interface ApiPage<T> {
   results: T[];
 }
 
-export interface ApiListItem {
-  name: string;
+export interface ApiListItem<T = string> {
+  name: T;
   url: string;
 }

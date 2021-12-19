@@ -9,7 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
 import PokemonListItem from "./PokemonListItem";
 import { fetchPokemonList } from "api/services";
-import { grayScale } from "utils/colors";
+import { grayScale } from "utils/constants/colors";
 import PokemonDetailView from "./PokemonDetailView";
 
 const PokemonListView: React.FC = () => {
@@ -19,11 +19,6 @@ const PokemonListView: React.FC = () => {
   const [selectedItem, setSelectedPokemon] = useState<
     ApiListItem | undefined
   >();
-  console.log(
-    "🚀 ~ file: PokemonListView.tsx ~ line 17 ~ selectedItem",
-    selectedItem
-  );
-
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     "pokemon-list",
     fetchPokemonList,
@@ -42,10 +37,8 @@ const PokemonListView: React.FC = () => {
   );
 
   const hasPrev = selectedItemIndex !== undefined && selectedItemIndex > 0;
-  console.log("🚀 ~ file: PokemonListView.tsx ~ line 45 ~ hasPrev", hasPrev);
   const hasNext =
     selectedItemIndex !== undefined && selectedItemIndex < listData.length;
-  console.log("🚀 ~ file: PokemonListView.tsx ~ line 47 ~ hasNext", hasNext);
 
   const handleSelect = (item: ApiListItem, index: number) => {
     setSelectedPokemon(item);
