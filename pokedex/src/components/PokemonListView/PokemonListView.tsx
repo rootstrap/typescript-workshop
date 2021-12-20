@@ -1,44 +1,37 @@
-import React, { useMemo, useState } from "react";
-import { useInfiniteQuery } from "react-query";
-import flatMap from "lodash/flatMap";
+import React, { useState } from "react";
+import { FetchNextPageOptions, InfiniteQueryObserverResult } from "react-query";
 
-import { getParamFromUrl } from "utils/helpers";
-import Layout from "./Layout";
-import { ApiPage, ApiListItem } from "utils/interfaces";
+import Layout from "../Layout";
+import { ApiListItem } from "utils/interfaces";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Loader from "react-loader-spinner";
-import PokemonListItem from "./PokemonListItem";
-import { fetchPokemonList } from "api/services";
+import PokemonListItem from "../PokemonListItem";
 import { grayScale } from "utils/constants/colors";
-import PokemonDetailView from "./PokemonDetailView";
+import PokemonDetailView from "../PokemonDetailView";
 
-const PokemonListView: React.FC = () => {
+interface PokemonListViewProps {
+  pokemonList: ApiListItem[];
+  hasNextPage: boolean;
+  fetchNextPage: (
+    options?: FetchNextPageOptions
+  ) => Promise<InfiniteQueryObserverResult>;
+}
+
+const PokemonListView: React.FC<PokemonListViewProps> = ({
+  pokemonList,
+  hasNextPage,
+  fetchNextPage,
+}) => {
   const [selectedItemIndex, setSelectedPokemonIndex] = useState<
     number | undefined
   >();
   const [selectedItem, setSelectedPokemon] = useState<
     ApiListItem | undefined
   >();
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    "pokemon-list",
-    fetchPokemonList,
-    {
-      getNextPageParam: (lastPage) => getParamFromUrl(lastPage.next, "offset"),
-    }
-  );
-
-  const listData = useMemo(
-    () =>
-      flatMap<ApiPage<ApiListItem>, ApiListItem>(
-        data?.pages,
-        (page) => page.results
-      ),
-    [data]
-  );
 
   const hasPrev = selectedItemIndex !== undefined && selectedItemIndex > 0;
   const hasNext =
-    selectedItemIndex !== undefined && selectedItemIndex < listData.length;
+    selectedItemIndex !== undefined && selectedItemIndex < pokemonList.length;
 
   const handleSelect = (item: ApiListItem, index: number) => {
     setSelectedPokemon(item);
@@ -53,7 +46,7 @@ const PokemonListView: React.FC = () => {
   const handlePrev = () => {
     if (hasPrev) {
       const newIndex = selectedItemIndex - 1;
-      setSelectedPokemon(listData[newIndex]);
+      setSelectedPokemon(pokemonList[newIndex]);
       setSelectedPokemonIndex(newIndex);
     }
   };
@@ -61,7 +54,7 @@ const PokemonListView: React.FC = () => {
   const handleNext = () => {
     if (hasNext) {
       const newIndex = selectedItemIndex + 1;
-      setSelectedPokemon(listData[newIndex]);
+      setSelectedPokemon(pokemonList[newIndex]);
       setSelectedPokemonIndex(newIndex);
     }
   };
@@ -70,7 +63,7 @@ const PokemonListView: React.FC = () => {
     <Layout>
       <InfiniteScroll
         scrollThreshold="0.7"
-        dataLength={listData.length}
+        dataLength={pokemonList.length}
         next={() => fetchNextPage()}
         hasMore={!!hasNextPage}
         loader={
@@ -83,7 +76,7 @@ const PokemonListView: React.FC = () => {
         }
         className="flex flex-wrap justify-center gap-4 pt-4 overflow-visible"
       >
-        {listData.map((item, index) => (
+        {pokemonList.map((item, index) => (
           <PokemonListItem
             key={item.url}
             {...item}

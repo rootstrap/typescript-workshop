@@ -6,8 +6,8 @@ import { colorsByType, grayScale } from "utils/constants/colors";
 import Header from "./components/Header";
 import Loader from "react-loader-spinner";
 import MainStats from "./components/MainStats";
-import { capitalize } from "lodash";
 import BaseStats from "./components/BaseStats";
+import PokemonTypePill from "components/PokemonTypePill";
 
 interface PokemonDetailViewProps {
   pokemon?: Pokemon;
@@ -59,13 +59,10 @@ const PokemonDetailView: React.FC<PokemonDetailViewProps> = ({
               <h2 className="sr-only">Types</h2>
               <ul className="flex justify-center gap-4">
                 {pokemon.types.map(({ type: { name } }) => (
-                  <li
-                    key={name}
-                    className="px-2 py-1 font-bold text-white rounded-full"
-                    style={{ backgroundColor: colorsByType[name] }}
-                  >
-                    {capitalize(name.toString())}
-                  </li>
+                  <PokemonTypePill
+                    key={`pokemon-detail-type-${name}`}
+                    name={name}
+                  />
                 ))}
               </ul>
               <h2

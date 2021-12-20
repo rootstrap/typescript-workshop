@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 function App() {
   const queryClient = new QueryClient();
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen font-poppins bg-background">
