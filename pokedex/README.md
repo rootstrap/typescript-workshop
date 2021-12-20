@@ -2,6 +2,10 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and the typescript template.
 
+![image](https://user-images.githubusercontent.com/9297073/146768715-9e4c31e2-7acd-420b-a52f-821ea6859c80.png)
+![image](https://user-images.githubusercontent.com/9297073/146768790-4c44395e-7e74-41a6-93f8-d48cd8b7e616.png)
+
+
 ## Available Scripts
 
 In the project directory, you can run:
